@@ -1,0 +1,74 @@
+<div class="min-h-screen bg-cover bg-center p-6"
+     style="background-image: url('assets/img/library-bg.jpg');">
+  <div class="bg-white/90 backdrop-blur-md p-6 rounded-xl max-w-4xl mx-auto shadow-md">
+    <h2 class="text-2xl font-bold mb-4">🔍 Consultas en lenguaje natural</h2>
+
+    <input [(ngModel)]="nombreReporte"
+       placeholder="Nombre del reporte"
+       class="w-full mb-4 p-2 border rounded" />
+       
+    <textarea [(ngModel)]="pregunta"
+              placeholder="Ej. ¿Cuántos usuarios han hecho préstamos?"
+              class="w-full p-4 border rounded-md mb-4 min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-400">
+    </textarea>
+
+    <button (click)="realizarConsulta()"
+            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+      Consultar
+    </button>
+
+    <div *ngIf="sql" class="mt-4 text-sm text-gray-700 italic">
+      SQL generado: <span class="font-mono text-blue-900">{{ sql }}</span>
+    </div>
+
+    <div *ngIf="error" class="mt-2 text-red-600 font-semibold">
+      {{ error }}
+    </div>
+
+    <div class="flex justify-end mb-2 text-sm">
+      <label for="filasPorPagina" class="mr-2 text-gray-700">Filas por página:</label>
+      <select [(ngModel)]="filasPorPagina"
+              (ngModelChange)="paginaActual = 1"
+              class="border rounded px-2 py-1 text-sm">
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="10">10</option>
+      </select>
+    </div>
+
+    <div *ngIf="resultadosPaginados?.length" class="mt-6 overflow-auto">
+      <table class="table-auto w-full border-collapse">
+        <thead class="bg-blue-100 text-blue-900">
+          <tr>
+            <th *ngFor="let col of columnas" class="px-4 py-2 border">{{ col }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of resultadosPaginados">
+            <td *ngFor="let col of columnas" class="px-4 py-2 border">{{ fila[col] }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Paginador -->
+      <div class="flex justify-center items-center gap-2 mt-4">
+        <button (click)="cambiarPagina(paginaActual - 1)"
+                [disabled]="paginaActual === 1"
+                class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">←</button>
+
+        <ng-container *ngFor="let page of [].constructor(totalPaginas); let i = index">
+          <button (click)="cambiarPagina(i + 1)"
+                  [class.bg-blue-600]="paginaActual === i + 1"
+                  [class.text-white]="paginaActual === i + 1"
+                  class="px-3 py-1 rounded border"
+          >
+            {{ i + 1 }}
+          </button>
+        </ng-container>
+
+        <button (click)="cambiarPagina(paginaActual + 1)"
+                [disabled]="paginaActual === totalPaginas"
+                class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">→</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+  <div *ngFor="let reporte of reportes"
+       class="bg-white rounded-lg shadow-md p-4 border border-gray-200 overflow-hidden">
+
+    <h3 class="text-lg font-semibold text-blue-800 mb-2 truncate">{{ reporte.nombre }}</h3>
+
+    <div *ngIf="reporte.resultado?.length; else errorTpl" class="overflow-auto max-h-64">
+      <table class="w-full text-sm border border-collapse">
+        <thead class="bg-gray-100 text-gray-700 sticky top-0">
+          <tr>
+            <th *ngFor="let col of reporte.resultado[0] | keyvalue" class="border px-2 py-1 text-left">
+              {{ col.key }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of reporte.resultado">
+            <td *ngFor="let col of fila | keyvalue" class="border px-2 py-1">
+              {{ col.value }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #errorTpl>
+      <p class="text-red-600 text-sm">⚠️ {{ reporte.error || 'Sin resultados disponibles.' }}</p>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="min-h-screen bg-cover bg-center" style="background-image: url('https://casacor.abril.com.br/_next/image?url=https%3A%2F%2Fd2iwr6cbo83dtj.cloudfront.net%2F2025%2F04%2FBiblioteca-da-Universidade-Trinity-College-%E2%80%94-Dublin-Irlanda.webp&w=3840&q=75');">
+  <!-- Navbar -->
+  <nav class="bg-white/80 backdrop-blur-md shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold cursor-pointer" (click)="navigateHome()">📘 Biblioteca</h1>
+    <div class="space-x-4">
+      <a routerLink="/dashboard" class="text-blue-700 hover:underline">Dashboard</a>
+      <a routerLink="/queries" class="text-blue-700 hover:underline">Consultas</a>
+      <a routerLink="/upload" class="text-blue-700 hover:underline">Subir archivos</a>
+      <a class="text-red-600 hover:underline cursor-pointer" (click)="logout()">Cerrar sesión</a>
+    </div>
+  </nav>
+
+  <!-- Vista dinámica -->
+  <div class="p-6">
+    <router-outlet></router-outlet>
+  </div>
+</div>
