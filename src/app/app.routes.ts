@@ -33,7 +33,12 @@ export const routes: Routes = [
         path: 'upload',
         loadComponent: () =>
           import('./pages/upload/upload.component').then(m => m.UploadComponent)
-      }
+      },     
+      {
+        path: 'etl-report',
+        loadComponent: () =>
+          import('./pages/etl-reports/etl-reports.component').then(m => m.EtlReportsComponent)
+      } 
     ]
   }
 ];

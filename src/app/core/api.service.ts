@@ -25,7 +25,7 @@ export class ApiService {
     const formData = new FormData();
     formData.append('tabla', tabla);
     formData.append('file', archivo);
-    return this.http.post(`${this.baseUrl}/upload`, formData);
+    return this.http.post(`${this.baseUrl}/upload/importar`, formData);
   }
 
   consultarEnLenguajeNatural(pregunta: string, nombreReporte: string) {
@@ -36,7 +36,12 @@ export class ApiService {
   }
 
   getReportesConResultado() {
-  return this.http.get<any[]>(`${this.baseUrl}/reportes/resultados`);
-}
+    return this.http.get<any[]>(`${this.baseUrl}/reportes/resultados`);
+  }
+
+  getEtlReportes() {
+    return this.http.get<any[]>(`${this.baseUrl}/etl/reportes`);
+  }
+
 
 }

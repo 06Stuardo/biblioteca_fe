@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+  <div *ngFor="let reporte of reportes" class="bg-white rounded-lg shadow-md p-4 border border-gray-200 overflow-hidden">
+    <h3 class="text-lg font-semibold text-blue-800 mb-2 truncate">{{ reporte.tabla }}</h3>
+
+    <div *ngIf="reporte.datos?.length; else sinDatos" class="overflow-auto max-h-64">
+      <table class="w-full text-sm border border-collapse">
+        <thead class="bg-gray-100 text-gray-700 sticky top-0">
+          <tr>
+            <th *ngFor="let columna of reporte.columnas" class="border px-2 py-1 text-left">
+              {{ columna }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of reporte.datos">
+            <td *ngFor="let columna of reporte.columnas" class="border px-2 py-1">
+              {{ fila[columna] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #sinDatos>
+      <p class="text-red-600 text-sm">⚠️ Sin datos disponibles.</p>
+    </ng-template>
+  </div>
+</div>

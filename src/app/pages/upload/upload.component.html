@@ -1,6 +1,6 @@
-<div class="min-h-screen bg-cover bg-center" style="background-image: url('https://casacor.abril.com.br/_next/image?url=https%3A%2F%2Fd2iwr6cbo83dtj.cloudfront.net%2F2025%2F04%2FBiblioteca-da-Universidade-Trinity-College-%E2%80%94-Dublin-Irlanda.webp&w=3840&q=75);">
-  <div class="flex justify-center pt-10">
-    <div class="bg-white/90 backdrop-blur-md p-6 rounded-lg shadow-xl w-full max-w-2xl">
+<div class="min-h-screen bg-cover bg-center" style="background-image: url('https://casacor.abril.com.br/_next/image?url=https%3A%2F%2Fd2iwr6cbo83dtj.cloudfront.net%2F2025%2F04%2FBiblioteca-da-Universidade-Trinity-College-%E2%80%94-Dublin-Irlanda.webp&w=3840&q=75');">
+  <div class="flex justify-center pt-10 px-4">
+    <div class="bg-white/90 backdrop-blur-md p-6 rounded-lg shadow-xl w-full max-w-3xl">
       <h2 class="text-2xl font-bold mb-4">📁 Subir archivo a tabla</h2>
 
       <label class="block text-sm font-medium mb-1">Selecciona una tabla:</label>
@@ -27,6 +27,28 @@
       <div *ngIf="error" class="mt-2 text-red-600 font-semibold">
         {{ error }}
       </div>
+
+      <!-- Vista previa -->
+      <div *ngIf="previewData.length > 0" class="mt-6 max-h-[400px] overflow-auto border rounded shadow-sm">
+        <h3 class="text-lg font-semibold mb-2">👀 Vista previa del archivo:</h3>
+        <table class="min-w-full text-sm text-left border-collapse">
+          <thead class="bg-gray-200 sticky top-0">
+            <tr>
+              <th *ngFor="let col of previewData[0] | keyvalue" class="px-4 py-2 font-medium border-b">
+                {{ col.key }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of previewData">
+              <td *ngFor="let col of row | keyvalue" class="px-4 py-2 border-b">
+                {{ col.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>
